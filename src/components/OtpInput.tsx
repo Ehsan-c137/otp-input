@@ -1,4 +1,3 @@
-import "./OtpInput.module.css";
 import { useMemo } from "react";
 
 type Props = {
@@ -35,12 +34,21 @@ export default function OTPInput({ value, valueLength, onChange }: Props) {
          return;
       }
 
+      // keep the selection range
+      target.setSelectionRange(0, target.value.length);
+
       const prevElSibiling =
          (target.previousElementSibling as HTMLInputElement) || null;
 
       if (prevElSibiling) {
          prevElSibiling.focus();
       }
+   };
+
+   const inputOnFocus = (e: React.FocusEvent<HTMLInputElement>) => {
+      const { target } = e;
+
+      target.setSelectionRange(0, target.value.length);
    };
 
    const handleInputChange = (
@@ -83,6 +91,7 @@ export default function OTPInput({ value, valueLength, onChange }: Props) {
                value={digit}
                inputMode="numeric"
                autoComplete="one-time-code"
+               onFocus={(e) => inputOnFocus(e)}
                maxLength={valueLength}
                onChange={(e) => handleInputChange(e, idx)}
                onKeyDown={(e) => inputOnKeyDown(e)}
