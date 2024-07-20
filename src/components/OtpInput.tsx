@@ -63,6 +63,11 @@ export default function OTPInput({ value, valueLength, onChange }: Props) {
          return;
       }
 
+      const nextInputEl = target.nextElementSibling as HTMLInputElement | null;
+      if (!isTargetValueDigit && nextInputEl && nextInputEl.value !== "") {
+         return;
+      }
+
       targetValue = isTargetValueDigit ? targetValue : " ";
 
       const targetValueLength = targetValue.length;
