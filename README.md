@@ -1,6 +1,6 @@
 # React + TypeScript + Vite
 
-use pnpm to start initilize project
+use pnpm to initilize project
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
