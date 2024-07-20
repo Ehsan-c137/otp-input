@@ -56,7 +56,7 @@ export default function OTPInput({ value, valueLength, onChange }: Props) {
       index: number
    ) => {
       const target = e.target;
-      let targetValue = target.value;
+      let targetValue = target.value.trim();
       const isTargetValueDigit = RE_DIGIT.test(targetValue);
 
       if (!isTargetValueDigit && targetValue !== "") {
@@ -65,20 +65,29 @@ export default function OTPInput({ value, valueLength, onChange }: Props) {
 
       targetValue = isTargetValueDigit ? targetValue : " ";
 
-      const newValue =
-         value.substring(0, index) + targetValue + value.substring(index + 1);
+      const targetValueLength = targetValue.length;
 
-      onChange(newValue);
+      if (targetValueLength === 1) {
+         const newValue =
+            value.substring(0, index) +
+            targetValue +
+            value.substring(index + 1);
 
-      if (!isTargetValueDigit) {
-         return;
-      }
+         onChange(newValue);
 
-      const nextElementSibling =
-         target.nextElementSibling as HTMLInputElement | null;
+         if (!isTargetValueDigit) {
+            return;
+         }
 
-      if (nextElementSibling) {
-         nextElementSibling.focus();
+         const nextElementSibling =
+            target.nextElementSibling as HTMLInputElement | null;
+
+         if (nextElementSibling) {
+            nextElementSibling.focus();
+         }
+      } else if (targetValueLength === valueLength) {
+         onChange(targetValue);
+         target.blur();
       }
    };
 
