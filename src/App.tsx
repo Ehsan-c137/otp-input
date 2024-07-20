@@ -1,10 +1,14 @@
-import OtpInput from "./components/OTPInput";
+import OtpInput from "./components/OtpInput";
 import "./App.css";
+import { useState } from "react";
 
 function App() {
+   const [otp, setOtp] = useState("");
+   const onChange = (value: string) => setOtp(value);
+
    return (
       <div className="container">
-         <OtpInput />
+         <OtpInput valueLength={6} value={otp} onChange={onChange} />
       </div>
    );
 }
